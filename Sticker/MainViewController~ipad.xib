@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="mrc-i3-1wV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash-backgroundipad.png" translatesAutoresizingMaskIntoConstraints="NO" id="xyc-Hi-ffj">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owR-Ur-hwU">
+                    <rect key="frame" x="166" y="811" width="436" height="117"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="436" id="Uu3-ge-27G"/>
+                        <constraint firstAttribute="height" constant="117" id="sX1-1s-a9O"/>
+                    </constraints>
+                    <state key="normal" image="take-picture-button.png"/>
+                    <connections>
+                        <action selector="takepic:" destination="-1" eventType="touchUpInside" id="Vwt-4O-hDl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpu-0T-7ho">
+                    <rect key="frame" x="166" y="707" width="436" height="117"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="436" id="glA-7f-KPn"/>
+                        <constraint firstAttribute="height" constant="117" id="zGs-up-VCI"/>
+                    </constraints>
+                    <state key="normal" image="open-picture-button.png"/>
+                    <connections>
+                        <action selector="openpic:" destination="-1" eventType="touchUpInside" id="8gj-ET-8mc"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dpu-0T-7ho" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="166" id="1R7-HN-s40"/>
+                <constraint firstItem="owR-Ur-hwU" firstAttribute="top" secondItem="dpu-0T-7ho" secondAttribute="bottom" constant="-13" id="4jV-ng-aZB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dpu-0T-7ho" secondAttribute="trailing" constant="166" id="9q4-8z-pAi"/>
+                <constraint firstItem="xyc-Hi-ffj" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="EEu-p0-DwS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="owR-Ur-hwU" secondAttribute="bottom" constant="96" id="Fio-H5-yQv"/>
+                <constraint firstItem="xyc-Hi-ffj" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Mln-YI-VNU"/>
+                <constraint firstItem="xyc-Hi-ffj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="TAJ-g0-lvX"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="owR-Ur-hwU" secondAttribute="trailing" constant="166" id="Z9h-HO-7oj"/>
+                <constraint firstItem="owR-Ur-hwU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="166" id="Zy3-JJ-VMl"/>
+                <constraint firstItem="xyc-Hi-ffj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="brB-Ge-SI9"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="33" y="53"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="open-picture-button.png" width="436" height="117"/>
+        <image name="splash-backgroundipad.png" width="2048" height="2731"/>
+        <image name="take-picture-button.png" width="436" height="117"/>
+    </resources>
+</document>
