@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddStickerViewController : UIViewController<UIAlertViewDelegate, NSURLConnectionDelegate>
+@interface AddStickerViewController : UIViewController<UIAlertViewDelegate, NSURLConnectionDelegate, UIWebViewDelegate> {
+    UIWebView *_webView;
+    
+    int coinsToAdd;
+}
 - (IBAction)cancel:(id)sender;
 - (IBAction)btn1:(id)sender;
 - (IBAction)btn2:(id)sender;

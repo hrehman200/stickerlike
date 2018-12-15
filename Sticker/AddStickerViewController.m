@@ -9,6 +9,8 @@
 #import "AddStickerViewController.h"
 #import "Helper.h"
 
+#define HOST @"http://magicalxyz.com/pay/" //@"http://localhost/magicalxyz_pay/"
+
 @interface AddStickerViewController ()
 
 @end
@@ -43,6 +45,7 @@
    /* int coin = [Helper getCoin] + 500;
     NSLog(@"con %d", coin);
     [Helper setCoin:coin];*/
+    coinsToAdd = 500;
     [self showPayMethodAlert];
 }
 
@@ -50,6 +53,7 @@
     /*int coin = [Helper getCoin] + 1500;
     NSLog(@"con %d", coin);
     [Helper setCoin:coin];*/
+    coinsToAdd = 1500;
      [self showPayMethodAlert];
 }
 
@@ -57,6 +61,7 @@
     /*int coin = [Helper getCoin] + 4000;
     NSLog(@"con %d", coin);
     [Helper setCoin:coin];*/
+    coinsToAdd = 4000;
      [self showPayMethodAlert];
 }
 
@@ -64,6 +69,7 @@
     /*int coin = [Helper getCoin] + 12000;
     NSLog(@"con %d", coin);
     [Helper setCoin:coin];*/
+    coinsToAdd = 12000;
      [self showPayMethodAlert];
 }
 
@@ -71,12 +77,13 @@
     /*int coin = [Helper getCoin] + 55000;
     NSLog(@"con %d", coin);
     [Helper setCoin:coin];*/
-     [self showPayMethodAlert];
+    coinsToAdd = 55000;
+    [self showPayMethodAlert];
 }
 
 
 -(void) showPayMethodAlert{
-     UIAlertView*  alert = [[UIAlertView alloc]initWithTitle:@"Choose a method to pay" message:@"" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Paypal",@"Stripe", nil];
+    UIAlertView*  alert = [[UIAlertView alloc]initWithTitle:@"Choose a method to pay" message:@"" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Paypal",@"Stripe", nil];
     [alert show];
 }
 
@@ -92,28 +99,58 @@
 
 -(void) showPaypal{
     
-    UIWebView* webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    [self.view addSubview:webview];
-    webview.delegate = self;
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.view addSubview:_webView];
+    _webView.delegate = self;
     
     NSURLRequest* request =
     [NSURLRequest requestWithURL:[NSURL URLWithString:
-                                  [NSString stringWithFormat:@"%@buy_paypal.php?user_email=%@",@"http://magicalxyz.com/pay/", [Helper getEmail]  ]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
-    
-    [webview loadRequest:request];
+                                  [NSString stringWithFormat:@"%@mobile_stripe.php?user_email=%@",@"http://localhost/magicalxyz_pay/", [Helper getEmail]  ]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
+    [_webView loadRequest:request];
     
 }
 
 -(void) showStripe{
-    UIWebView* webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-    [self.view addSubview:webview];
-    webview.delegate = self;
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [self.view addSubview:_webView];
+    _webView.delegate = self;
     
     NSURLRequest* request =
     [NSURLRequest requestWithURL:[NSURL URLWithString:
-                                  [NSString stringWithFormat:@"%@buy_stripe.php?user_email=%@",@"http://magicalxyz.com/pay/", [Helper getEmail]  ]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
+                                  [NSString stringWithFormat:@"%@mobile_stripe.php?user_email=%@&c=%d", HOST, [Helper getEmail], coinsToAdd  ]] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60.0];
     
-    [webview loadRequest:request];
+    [_webView loadRequest:request];
+}
+
+- (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request
+ navigationType:(UIWebViewNavigationType)navigationType {
+    if ([[request.URL absoluteString] isEqualToString:@"https://www.yahoo.com/"]) {
+        [_webView removeFromSuperview];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Success"
+                                                                       message:@"Coins will be added in a few minutes."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return NO;
+    
+    } else if ([[request.URL absoluteString] isEqualToString:@"https://www.google.com/"]) {
+        [_webView removeFromSuperview];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                       message:@"Some error occurred in making the payment."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+        return NO;
+    }
+    return YES;
 }
 
 @end
